@@ -23,7 +23,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 			'metal'      => $lang['Metal'],
 			'crystal'    => $lang['Crystal'],
 			'deuterium'  => $lang['Deuterium'],
-			'energy_max' => $lang['Energy']
+			'energy' => $lang['Energy']
 		);
 
 		$text = $lang['fgp_require'];
@@ -37,7 +37,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 				else
 					$cost = floor($pricelist[$Element][$ResType]);
 
-				if ($cost > $planet[$ResType])
+				if ($cost > ($ResType === 'energy' ? $planet['energy_max'] + $planet['energy_used'] : $planet[$ResType]))
 				{
 					$text .= "<b style=\"color:red;\"> <t title=\"-" . Format::pretty_number ($cost - $planet[$ResType]) . "\">";
 					$text .= "<span class=\"noresources\">" . Format::pretty_number($cost) . "</span></t></b> ";

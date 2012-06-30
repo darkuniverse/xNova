@@ -21,7 +21,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 			$level  = ($CurrentPlanet[$resource[$Element]]) ? $CurrentPlanet[$resource[$Element]] : $CurrentUser[$resource[$Element]];
 
 		$RetValue = TRUE;
-		$array    = array('metal', 'crystal', 'deuterium', 'energy_max');
+		$array    = array('metal', 'crystal', 'deuterium', 'energy');
 
 		foreach ($array as $ResType)
 		{
@@ -35,7 +35,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 				if ($ForDestroy)
 					$cost[$ResType]  = floor($cost[$ResType] / 4);
 
-				if ($cost[$ResType] > $CurrentPlanet[$ResType])
+				elseif ($cost[$ResType] > ($ResType === 'energy' ? $CurrentPlanet['energy_max'] + $CurrentPlanet['energy_used'] : $CurrentPlanet[$ResType]))
 					$RetValue = FALSE;
 			}
 		}

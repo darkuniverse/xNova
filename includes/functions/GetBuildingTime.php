@@ -28,8 +28,9 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 		}
 		elseif (in_array($Element, $reslist['tech']))
 		{
-			$cost_metal   = floor($pricelist[$Element]['metal']   * pow($pricelist[$Element]['factor'], $level));
-			$cost_crystal = floor($pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level));
+			$cost_metal		= floor($pricelist[$Element]['metal']   * pow($pricelist[$Element]['factor'], $level));
+			$cost_crystal	= floor($pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level));
+			$cost_energy	= floor($pricelist[$Element]['energy'] * pow($pricelist[$Element]['factor'], $level));
 			$intergal_lab = $user[$resource[123]];
 
 			if($intergal_lab < 1)
@@ -49,7 +50,7 @@ if(!defined('INSIDE')){ die(header("location:../../"));}
 		//		}
 			}
 
-			$time         = (($cost_metal + $cost_crystal) / read_config ( 'game_speed' )) / (($lablevel + 1) * 2);
+			$time         = ((($cost_metal + $cost_crystal)*($cost_energy ? $cost_energy/1000 : 1)) / read_config ( 'game_speed' )) / (($lablevel + 1) * 2);
 			$time         = floor(($time * 60 * 60) * (1 - (($user['rpg_technocrate']) * TECHNOCRATE_SPEED)));
 		}
 		elseif (in_array($Element, $reslist['defense']))
